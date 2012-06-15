@@ -29,10 +29,9 @@ var install = function (name) {
     res.on('end', function () {
       var modules = JSON.parse(body)
       var module = modules[name]
-      console.log(module)
-      console.log("is module")
       makePoorModulesDir(function (err) {
-        exec("cd poor_modules; wget " + module.url)
+        exec("cd poor_modules; curl -O -k " + module.url)
+        console.log("Installed '" + name + "' to 'poor_modules' folder.")
         //for (var i = 0; i < module.dependencies.length; i++) {
         //  var dependency = module.dependencies[i]
         //  install(dependency) 
@@ -43,6 +42,7 @@ var install = function (name) {
   })
 }
 
+
 var commands = {
   install : install
 }
@@ -51,6 +51,8 @@ var command = args[0]
 
 if (command in commands) {
   commands[command].apply(null, args.slice(1))
+} else {
+  commands.install.apply(null, args.slice(0)) 
 }
 
 
