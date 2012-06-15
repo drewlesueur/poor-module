@@ -13,6 +13,13 @@ modules =
     name: 'rpc'
     dependencies: ['underscore']
     url: 'https://raw.github.com/drewlesueur/red-yarn/master/rpc.js'
+  'pm':
+    name: 'poor-module'
+    url: 'https://raw.github.com/drewlesueur/poor-module/master/poor-module.js'
+  'poor-module':
+    name: 'poor-module'
+    url: 'https://raw.github.com/drewlesueur/poor-module/master/poor-module.js'
+  
 
 console.log JSON.stringify modules
 
