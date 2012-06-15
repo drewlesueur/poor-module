@@ -2,9 +2,58 @@
 
 //maybe put this in /usr/local/bin
 var fs = require('fs');
+var http = require("https")
+var exec = require("child_process").exec
+
 console.log("poor module")
 var args = process.argv.slice(2)
-console.log(args)
+
+var makePoorModulesDir = function (cb) {
+  exec("mkdir poor_modules", function (err) {
+    cb(err) 
+  })
+  
+}
+
+
+var install = function (name) {
+  httpOptions = {
+    host: "raw.github.com",
+    path: "/drewlesueur/poor-module/master/modules/modules.json"
+  }
+  http.get(httpOptions, function(res) {
+    var body = "" 
+    res.on('data', function (chunk) {
+      body += chunk.toString() 
+    })
+    res.on('end', function () {
+      var modules = JSON.parse(body)
+      var module = modules[name]
+      console.log(module)
+      console.log("is module")
+      makePoorModulesDir(function (err) {
+        exec("cd poor_modules; wget " + module.url)
+        //for (var i = 0; i < module.dependencies.length; i++) {
+        //  var dependency = module.dependencies[i]
+        //  install(dependency) 
+        //}
+      })
+
+    })
+  })
+}
+
+var commands = {
+  install : install
+}
+
+var command = args[0]
+
+if (command in commands) {
+  commands[command].apply(null, args.slice(1))
+}
+
+
 
 
 

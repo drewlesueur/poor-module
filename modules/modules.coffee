@@ -12,7 +12,7 @@ modules =
   'rpc':
     name: 'rpc'
     dependencies: ['underscore']
-    url: 'https://raw.github.com/drewlesueur/red-yarn/master/rpc.coffee'
+    url: 'https://raw.github.com/drewlesueur/red-yarn/master/rpc.js'
 
 console.log JSON.stringify modules
 
