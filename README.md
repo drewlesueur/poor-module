@@ -11,3 +11,10 @@ Almost all code was stolen from @creationix's https://gist.github.com/926811
 For example use see <a href="http://github.com/drewlesueur/red-yarn">my red-yarn project</a>
 
 
+
+Also included in `bin` is the poor-module executable.  
+Link it to /usr/local/bin. 
+You can write commands like `pm install rpc` 
+So far the available modules are in the `modules/modules.json folder`
+
+
