@@ -5,7 +5,6 @@ var fs = require('fs');
 var http = require("https")
 var exec = require("child_process").exec
 
-console.log("poor module")
 var args = process.argv.slice(2)
 
 var makePoorModulesDir = function (cb) {
@@ -42,9 +41,31 @@ var install = function (name) {
   })
 }
 
+var outputNode = function () {
+  exec("ls poor_modules", function (err, stdout){
+    files = stdout.split("\n")
+    for (var i = 0; i < files.length; i++) {
+      var file = files[i]
+      if (file.length) console.log("require(\"./poor_modules/"+file+"\")")       
+    }
+  })  
+}
+
+var outputBrowser = function () {
+  exec("ls poor_modules", function (err, stdout){
+    files = stdout.split("\n")
+    for (var i = 0; i < files.length; i++) {
+      var file = files[i]
+      if (file.length) console.log("<script src=\"/poor_modules/"+file+"\"></script>")       
+    }
+  })  
+}
 
 var commands = {
-  install : install
+  install : install,
+  "node": outputNode,
+  browser: outputBrowser
+
 }
 
 var command = args[0]

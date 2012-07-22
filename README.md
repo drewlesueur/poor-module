@@ -1,7 +1,7 @@
 poor-module
 ===========
 
-a less than 50 line module for node.js and the browser.
+a less than 20 line module system for node.js and the browser.
 
 This is a simple module system for use in node.js and the browser. 
 It doesn't try to load files. It just is for defining modules so you don't polute the global scope.  

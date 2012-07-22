@@ -19,7 +19,9 @@ modules =
   'poor-module':
     name: 'poor-module'
     url: 'https://raw.github.com/drewlesueur/poor-module/master/poor-module.js'
-  
+  'peppermint-expressions':
+    name: 'peppermint-expressoins'
+    url: 'https://raw.github.com/drewlesueur/peppermint-expressions/master/peppermint-expressions.js'
 
 console.log JSON.stringify modules
 
