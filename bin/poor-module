@@ -14,12 +14,14 @@ var makePoorModulesDir = function (cb) {
   })
 }
 
-
 var install = function (name) {
+  var path = "/drewlesueur/poor-module/master/modules/" + name + ".json"
+  console.log(path)
   httpOptions = {
     host: "raw.github.com",
-    path: "/drewlesueur/poor-module/master/modules/#{name}.json"
+    path: path
   }
+
   http.get(httpOptions, function(res) {
     var body = "" 
     res.on('data', function (chunk) {

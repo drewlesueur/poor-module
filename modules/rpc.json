@@ -1,5 +1,5 @@
 {
     "name": "rpc",
     "dependencies": ["underscore"],
-    "url: "https://raw.github.com/drewlesueur/red-yarn/master/rpc.js"
+    "url": "https://raw.github.com/drewlesueur/red-yarn/master/rpc.js"
  }
