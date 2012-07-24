@@ -1,11 +1,106 @@
+<style>
+  * {font-family: Helvetica, Arial}
+  code, pre {
+    font-family: Consolas, Menlo, 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+  }
+  table{
+    font-family: Consolas, Menlo, 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+    vertical-align: middle;
+    border-collapse: collapse;
+    border: 1px solid black;
+  }
+</style>
 <h1>Poor Module</h1>
 <p><i>A 15 line module system for node.js and the browser</i>
 <a href="http://github.com/drewlesueur/poor-module">source on github</a><p>
 
 <p>
-Poor-module is a module system that doesn't worry about loading files.
-It assumes all files are loaded, and lets you get and set modules.
-Almost all code was stolen from @creationix's <a href="https://gist.github.com/926811">module.js</a>
+Poor-module lets you write the modules in node.js and the browser
+with minimal boilerplate code.
+<br/> <br/>
+It's different from npm and other module systems <br />
+because it doesn't care about loading your files.
+<br /> <br />
+It assumes that your files are already loaded.
+<br />
+(Like you are used to in <code>&lt;script&gt;</code> tags)
+<br /> <br />
 </p>
 
-<a href="https://github.com/drewlesueur/poor-module/tree/master/test">See an example for both node.js and the browser</a>
+<h2>Example use in node.js and the browser</h2>
+<table cellpadding="5" border=1>
+  <tr>
+    <th></th>
+    <th>Broswer</th>
+    <th>node.js</th>
+  </tr>
+  <tr>
+    <td>
+      Boilerplate <br />
+      (index.html and app.js)
+    </td>
+    <td>
+<pre>
+// this file is index.html
+&lt;script src="poor_modules/poor_module.js" /&gt;
+&lt;script src="poor_modules/my_cool_module.js" /&gt;
+&lt;script src="main.js" /&gt;
+</pre>
+    </td>
+    <td>
+<pre>
+// this file is app.js
+require("poor_modules/poor_module.js")
+require("poor_modules/my_cool_module.js")
+require("main.js")
+</pre>
+    </td>
+  </tr>
+  <tr>
+    <td>Your module code (say_hi.js)</td>
+    <td colspan="2">
+<pre>
+// this file is 'say_hi.js'
+poorModule("say-hi", function () {
+  return function () {
+    console.log("hello world!")
+  }  
+})
+</pre>
+    </td>
+  </tr>
+  <tr>
+    <td>The main file (main.js)</td>
+    <td colspan="2">
+<pre>
+// this file is 'main.js'
+var sayHi = poorModule("say-hi")
+sayHi();
+</pre>
+    </td>
+  </tr>
+  <tr>
+    <td>run the file</td>
+    <td colspan="1">
+<pre>
+(visit http://yoursite.com/index.html in your browser)
+</pre>
+    </td>
+    <td colspan="1">
+<pre>
+node app.js
+</pre>
+    </td>
+  </tr>
+</table>
+
+
+<p>
+Almost all code was stolen from @creationix's <a href="https://gist.github.com/926811">module.js</a>
+</p>
+<a href="https://github.com/drewlesueur/poor-module/tree/master/test">See another example</a>
+<hr />
+
+
+
+<h2>command line tool</h2>

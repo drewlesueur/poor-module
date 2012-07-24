@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-//maybe put this in /usr/local/bin
+//maybe link to this file in put this in /usr/local/bin
+console.log("poor module")
 var fs = require('fs');
 var http = require("https")
 var exec = require("child_process").exec
@@ -11,14 +12,13 @@ var makePoorModulesDir = function (cb) {
   exec("mkdir poor_modules", function (err) {
     cb(err) 
   })
-  
 }
 
 
 var install = function (name) {
   httpOptions = {
     host: "raw.github.com",
-    path: "/drewlesueur/poor-module/master/modules/modules.json"
+    path: "/drewlesueur/poor-module/master/modules/#{name}.json"
   }
   http.get(httpOptions, function(res) {
     var body = "" 
@@ -26,8 +26,7 @@ var install = function (name) {
       body += chunk.toString() 
     })
     res.on('end', function () {
-      var modules = JSON.parse(body)
-      var module = modules[name]
+      var module = JSON.parse(body)
       makePoorModulesDir(function (err) {
         exec("cd poor_modules; curl -O -k " + module.url)
         console.log("Installed '" + name + "' to 'poor_modules' folder.")
@@ -36,7 +35,6 @@ var install = function (name) {
         //  install(dependency) 
         //}
       })
-
     })
   })
 }
@@ -75,8 +73,4 @@ if (command in commands) {
 } else {
   commands.install.apply(null, args.slice(0)) 
 }
-
-
-
-
 
