@@ -32,10 +32,12 @@ var install = function (name) {
       makePoorModulesDir(function (err) {
         exec("cd poor_modules; curl -O -k " + module.url)
         console.log("Installed '" + name + "' to 'poor_modules' folder.")
-        //for (var i = 0; i < module.dependencies.length; i++) {
-        //  var dependency = module.dependencies[i]
-        //  install(dependency) 
-        //}
+        if (module.dependencies) {
+          for (var i = 0; i < module.dependencies.length; i++) {
+            var dependency = module.dependencies[i]
+            install(dependency) 
+          }
+        }
       })
     })
   })
