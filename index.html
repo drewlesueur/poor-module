@@ -43,7 +43,7 @@ It assumes that your files are already loaded.
 <pre>
 // this file is index.html
 &lt;script src="poor_modules/poor_module.js" /&gt;
-&lt;script src="poor_modules/my_cool_module.js" /&gt;
+&lt;script src="poor_modules/say_hi.js" /&gt;
 &lt;script src="main.js" /&gt;
 </pre>
     </td>
@@ -51,7 +51,7 @@ It assumes that your files are already loaded.
 <pre>
 // this file is app.js
 require("poor_modules/poor_module.js")
-require("poor_modules/my_cool_module.js")
+require("poor_modules/say_hi.js")
 require("main.js")
 </pre>
     </td>
@@ -105,5 +105,18 @@ Almost all code was stolen from @creationix's <a href="https://gist.github.com/9
 <p>
 
 To get it do run 
-<pre>curl http://poor-module.drewl.us/install.sh | sh</pre>
+<pre>
+wget https://raw.github.com/drewlesueur/poor-module/master/bin/pm /usr/local/bin
+chmod 777 /usr/local/bin/pm
+</pre>
+
 </p>
+<p>
+Now, to install a module do
+<pre>
+pm install my_cool_module 
+</pre>
+Where <code>my_cool_module</code> is the name of the module
+</p>
+<a href="https://github.com/drewlesueur/poor-module/tree/master/modules">See a list of modules</a>
+
