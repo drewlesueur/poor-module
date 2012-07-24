@@ -1,0 +1,80 @@
+#!/usr/bin/env node
+
+//maybe link to this file in put this in /usr/local/bin
+console.log("poor module")
+var fs = require('fs');
+var http = require("https")
+var exec = require("child_process").exec
+
+var args = process.argv.slice(2)
+
+var makePoorModulesDir = function (cb) {
+  exec("mkdir poor_modules", function (err) {
+    cb(err) 
+  })
+}
+
+var install = function (name) {
+  var path = "/drewlesueur/poor-module/master/modules/" + name + ".json"
+  console.log(path)
+  httpOptions = {
+    host: "raw.github.com",
+    path: path
+  }
+
+  http.get(httpOptions, function(res) {
+    var body = "" 
+    res.on('data', function (chunk) {
+      body += chunk.toString() 
+    })
+    res.on('end', function () {
+      var module = JSON.parse(body)
+      makePoorModulesDir(function (err) {
+        exec("cd poor_modules; curl -O -k " + module.url)
+        console.log("Installed '" + name + "' to 'poor_modules' folder.")
+        if (module.dependencies) {
+          for (var i = 0; i < module.dependencies.length; i++) {
+            var dependency = module.dependencies[i]
+            install(dependency) 
+          }
+        }
+      })
+    })
+  })
+}
+
+var outputNode = function () {
+  exec("ls poor_modules", function (err, stdout){
+    files = stdout.split("\n")
+    for (var i = 0; i < files.length; i++) {
+      var file = files[i]
+      if (file.length) console.log("require(\"./poor_modules/"+file+"\")")       
+    }
+  })  
+}
+
+var outputBrowser = function () {
+  exec("ls poor_modules", function (err, stdout){
+    files = stdout.split("\n")
+    for (var i = 0; i < files.length; i++) {
+      var file = files[i]
+      if (file.length) console.log("<script src=\"/poor_modules/"+file+"\"></script>")       
+    }
+  })  
+}
+
+var commands = {
+  install : install,
+  "node": outputNode,
+  browser: outputBrowser
+
+}
+
+var command = args[0]
+
+if (command in commands) {
+  commands[command].apply(null, args.slice(1))
+} else {
+  commands.install.apply(null, args.slice(0)) 
+}
+
