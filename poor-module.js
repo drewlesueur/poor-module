@@ -1,7 +1,7 @@
 ;(function (root) {
 var _poorModule = root._poorModule = {}
 , defs = _poorModule.defs = {}, modules = _poorModule.modules = {}
-, poorModule = root.poorModule = _poorModule.poorModule = function (name, fn) {
+, poorModule = root.poor_module =  root.poorModule = _poorModule.poorModule = function (name, fn) {
   if (fn) { defs[name] = fn; delete modules[name]; }
   else {
     if (modules.hasOwnProperty(name)) return modules[name];
